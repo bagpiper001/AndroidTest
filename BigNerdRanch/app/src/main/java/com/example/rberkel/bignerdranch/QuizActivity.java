@@ -53,6 +53,8 @@ public class QuizActivity extends Activity {
             }
         });
 
+        //test
+
         mNextButton = (Button)findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
