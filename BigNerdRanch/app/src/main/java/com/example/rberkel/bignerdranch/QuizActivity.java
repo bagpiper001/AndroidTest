@@ -16,6 +16,7 @@ public class QuizActivity extends Activity {
     private Button mFalseButton;
     private Button mNextButton;
     private TextView mQuestionTextView;
+    private int maxIndex;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
       new TrueFalse(R.string.question_oceans, true),
@@ -27,6 +28,14 @@ public class QuizActivity extends Activity {
 
     private int mCurrentIndex = 0;
 
+
+    private void getQuestionIndex() {
+        if(mCurrentIndex < maxIndex && maxIndex != 0) {
+            mCurrentIndex = (mCurrentIndex) + 1;
+        } else {
+            mCurrentIndex = 0;
+        }
+    }
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
@@ -50,6 +59,7 @@ public class QuizActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate() called");
         setContentView(R.layout.activity_quiz);
+        maxIndex = mQuestionBank.length -1;
 
         mTrueButton = (Button)findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener(){
@@ -70,18 +80,18 @@ public class QuizActivity extends Activity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int maxIndex = mQuestionBank.length -1;
-                Log.d(TAG, "maxIndex" + maxIndex);
-                Log.d(TAG, "currentIndex" + mCurrentIndex);
-                if(mCurrentIndex < maxIndex) {
-                    mCurrentIndex = (mCurrentIndex + 1);
-                } else {
-                    mCurrentIndex = 0;
-                }
+                getQuestionIndex();
                 updateQuestion();
             }
         });
         mQuestionTextView = (TextView)findViewById(R.id.question_text_view);
+        mQuestionTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                getQuestionIndex();
+                updateQuestion();
+            }
+        });
         updateQuestion();
     }
 
