@@ -15,6 +15,7 @@ public class QuizActivity extends Activity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mPreviousButton;
     private TextView mQuestionTextView;
     private int maxIndex;
 
@@ -29,11 +30,19 @@ public class QuizActivity extends Activity {
     private int mCurrentIndex = 0;
 
 
-    private void getQuestionIndex() {
+    private void getQuestionIndexUp() {
         if(mCurrentIndex < maxIndex && maxIndex != 0) {
             mCurrentIndex = (mCurrentIndex) + 1;
         } else {
             mCurrentIndex = 0;
+        }
+    }
+
+    private void getQuestionIndexDown() {
+        if(maxIndex != 0 && mCurrentIndex != 0){
+            mCurrentIndex = (mCurrentIndex) - 1;
+        } else {
+            mCurrentIndex = maxIndex;
         }
     }
     private void updateQuestion() {
@@ -80,7 +89,16 @@ public class QuizActivity extends Activity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getQuestionIndex();
+                getQuestionIndexUp();
+                updateQuestion();
+            }
+        });
+
+        mPreviousButton = (Button)findViewById(R.id.previous_button);
+        mPreviousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getQuestionIndexDown();
                 updateQuestion();
             }
         });
@@ -88,7 +106,7 @@ public class QuizActivity extends Activity {
         mQuestionTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                getQuestionIndex();
+                getQuestionIndexUp();
                 updateQuestion();
             }
         });

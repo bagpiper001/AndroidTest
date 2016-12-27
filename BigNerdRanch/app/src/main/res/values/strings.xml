@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">BigNerdRanch</string>
+    <string name="previous_button">Previous</string>
     <string name="next_button">Next</string>
     <string name="false_button">False</string>
     <string name="true_button">True</string>
