@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class QuizActivity extends Activity {
 
     private final static String TAG = "QuizActivity";
+    private final static String KEY_INDEX = "index";
     private Button mTrueButton;
     private Button mFalseButton;
     private ImageButton mNextButton;
@@ -70,6 +71,9 @@ public class QuizActivity extends Activity {
         Log.d(TAG, "onCreate() called");
         setContentView(R.layout.activity_quiz);
         maxIndex = mQuestionBank.length -1;
+        if(savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
 
         mTrueButton = (Button)findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener(){
@@ -113,7 +117,11 @@ public class QuizActivity extends Activity {
         });
         updateQuestion();
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
     @Override
     protected  void onStart() {
         super.onStart();
